@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>For Keerthi ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
+
+body{
+background:linear-gradient(135deg,#ff4e8a,#ff9a9e);
+color:white;
+text-align:center;
+overflow-x:hidden;
+}
+
+/* sections */
+section{min-height:100vh;padding:40px 20px;}
+.hidden{display:none}
+
+/* glowing text */
+.glow{
+font-size:40px;
+animation:glow 2s infinite alternate;
+}
+@keyframes glow{
+from{text-shadow:0 0 10px #fff;}
+to{text-shadow:0 0 30px #ff0033;}
+}
+
+/* typing */
+#typed{
+font-size:28px;
+margin-top:10px;
+}
+
+/* inputs */
+input,button{
+padding:12px 25px;
+border:none;
+border-radius:30px;
+font-size:16px;
+}
+button{
+background:#ff0033;
+color:white;
+margin-top:15px;
+cursor:pointer;
+}
+
+/* floating hearts */
+.heart{
+position:fixed;
+bottom:-10px;
+font-size:22px;
+animation:float 6s linear infinite;
+}
+@keyframes float{
+to{transform:translateY(-100vh);}
+}
+
+/* gifts */
+.gifts{
+display:flex;
+justify-content:center;
+gap:40px;
+margin-top:40px;
+}
+
+.gift{
+width:120px;
+height:120px;
+background:url("https://cdn-icons-png.flaticon.com/512/869/869869.png") no-repeat center;
+background-size:contain;
+cursor:pointer;
+animation:floatGift 2s infinite ease-in-out;
+}
+
+@keyframes floatGift{
+0%{transform:translateY(0);}
+50%{transform:translateY(-10px);}
+100%{transform:translateY(0);}
+}
+
+.gift:active{
+transform:scale(1.1);
+}
+
+/* content box */
+.box{
+background:white;
+color:#ff0033;
+margin:30px auto;
+padding:20px;
+border-radius:20px;
+max-width:360px;
+}
+.slide{display:none;}
+.slide img{width:90%;border-radius:15px}
+
+/* proposal */
+.proposal{
+font-size:28px;
+margin-top:30px;
+}
+
+/* hug animation */
+.hug{
+font-size:60px;
+animation:hug 1s infinite alternate;
+}
+@keyframes hug{
+from{transform:scale(1);}
+to{transform:scale(1.2);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<section id="login">
+<h1>🔐 Surprise for My Chlm🥰</h1>
+<p>Enter Password <b>arunkeerthi</b> 💕</p><br>
+<input type="password" id="pass"><br>
+<button onclick="unlock()">Open ❤️</button>
+</section>
+
+<!-- MAIN -->
+<section id="main" class="hidden">
+<h1 class="glow">Keerthika ❤️</h1>
+<div id="typed"></div>
+
+<p id="countdown" style="margin-top:20px;font-size:18px;"></p>
+
+<p style="margin-top:40px;">
+From ➝ Friends ➝ Enemies ➝ Love ➝ Breakups ➝ Again Love ➝ i love u more ➝ u more than me but sometimes 
+Now you are my Soulmate 💖<br>
+Every moment with you is magic ✨
+</p>
+
+<!-- GIFT BOXES -->
+<div class="gifts">
+  <div class="gift" onclick="openMemories()"></div>
+  <div class="gift" onclick="openQuote()"></div>
+</div>
+
+<!-- MEMORIES -->
+<div id="memories" class="box hidden">
+<h2>Our Memories 📸</h2>
+<div class="slide"><img src="photo1.jpeg"></div>
+<div class="slide"><img src="photo2.jpeg"></div>
+<div class="slide"><img src="photo3.jpeg"></div>
+<div class="slide"><img src="photo4.jpeg"></div>
+<div class="slide"><img src="photo5.jpeg"></div>
+<div class="slide"><img src="photo6.jpeg"></div>
+<div class="slide"><img src="photo7.jpeg"></div>
+</div>
+
+<!-- QUOTE -->
+<div id="quote" class="box hidden">
+<h2>From My Heart 💌</h2>
+<p>
+You are my today, my tomorrow, my always 💕<br>
+I love you more every day ❤️
+</p>
+</div>
+</section>
+
+<!-- PROPOSAL -->
+<section id="proposal" class="hidden">
+<h1 class="proposal">Keerthi 💍</h1>
+<p>Will you stay with me forever? ❤️</p>
+<button onclick="sayYes()">YES 💖</button>
+
+<div id="yesMsg" class="hidden">
+<h1>I Love You So Much ✨❤️</h1>
+<div class="hug">🧸💖</div>
+</div>
+</section>
+
+<audio id="song" src="song.mp3" loop></audio>
+
+<script>
+let slideIndex=0;
+let slideRunning=false;
+
+/* unlock */
+function unlock(){
+if(pass.value==="arunkeerthi"){
+login.classList.add("hidden");
+main.classList.remove("hidden");
+song.volume=0.5;
+song.play();
+hearts();
+typeWriter();
+startCountdown();
+}else{
+alert("Wrong Password 😢");
+}
+}
+
+/* typing */
+let text="Happy velentine's day  💕";
+let i=0;
+function typeWriter(){
+if(i<text.length){
+typed.innerHTML+=text.charAt(i);
+i++;
+setTimeout(typeWriter,80);
+}
+}
+
+/* countdown */
+function startCountdown(){
+let target=new Date("July 3, 2026 00:00:00").getTime();
+setInterval(()=>{
+let now=new Date().getTime();
+let diff=target-now;
+let days=Math.max(0,Math.floor(diff/(1000*60*60*24)));
+countdown.innerHTML="Countdown to your birthday 🎂 : "+days+" days";
+},1000);
+}
+
+/* memories slideshow */
+function openMemories(){
+memories.classList.toggle("hidden");
+if(!slideRunning){
+slideRunning=true;
+startSlide();
+}
+}
+
+function startSlide(){
+let slides=document.querySelectorAll(".slide");
+slides.forEach(s=>s.style.display="none");
+slideIndex++;
+if(slideIndex>slides.length) slideIndex=1;
+slides[slideIndex-1].style.display="block";
+setTimeout(startSlide,2000);
+}
+
+/* quote + proposal */
+function openQuote(){
+quote.classList.toggle("hidden");
+setTimeout(()=>{
+main.classList.add("hidden");
+proposal.classList.remove("hidden");
+},5000);
+}
+
+/* yes */
+function sayYes(){
+yesMsg.classList.remove("hidden");
+document.querySelector("#proposal button").style.display="none";
+}
+
+/* hearts */
+function hearts(){
+setInterval(()=>{
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML="❤️";
+h.style.left=Math.random()*100+"vw";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),6000);
+},300);
+}
+</script>
+
+</body>
+</html>
