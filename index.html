@@ -15,11 +15,9 @@ text-align:center;
 overflow-x:hidden;
 }
 
-/* sections */
 section{min-height:100vh;padding:40px 20px;}
 .hidden{display:none}
 
-/* glowing text */
 .glow{
 font-size:40px;
 animation:glow 2s infinite alternate;
@@ -29,13 +27,8 @@ from{text-shadow:0 0 10px #fff;}
 to{text-shadow:0 0 30px #ff0033;}
 }
 
-/* typing */
-#typed{
-font-size:28px;
-margin-top:10px;
-}
+#typed{font-size:28px;margin-top:10px;}
 
-/* inputs */
 input,button{
 padding:12px 25px;
 border:none;
@@ -49,7 +42,6 @@ margin-top:15px;
 cursor:pointer;
 }
 
-/* floating hearts */
 .heart{
 position:fixed;
 bottom:-10px;
@@ -60,7 +52,6 @@ animation:float 6s linear infinite;
 to{transform:translateY(-100vh);}
 }
 
-/* gifts */
 .gifts{
 display:flex;
 justify-content:center;
@@ -83,11 +74,6 @@ animation:floatGift 2s infinite ease-in-out;
 100%{transform:translateY(0);}
 }
 
-.gift:active{
-transform:scale(1.1);
-}
-
-/* content box */
 .box{
 background:white;
 color:#ff0033;
@@ -96,16 +82,12 @@ padding:20px;
 border-radius:20px;
 max-width:360px;
 }
+
 .slide{display:none;}
 .slide img{width:90%;border-radius:15px}
 
-/* proposal */
-.proposal{
-font-size:28px;
-margin-top:30px;
-}
+.proposal{font-size:28px;margin-top:30px;}
 
-/* hug animation */
 .hug{
 font-size:60px;
 animation:hug 1s infinite alternate;
@@ -134,41 +116,49 @@ to{transform:scale(1.2);}
 
 <p id="countdown" style="margin-top:20px;font-size:18px;"></p>
 
+<!-- NEW BUTTON -->
+<button id="bdayBtn" class="hidden" onclick="openWish()">Open Birthday Wish 🎁</button>
+
+<!-- BIRTHDAY MESSAGE -->
+<div id="bdayWish" class="box hidden">
+<h2>Happy Birthday My Love ❤️</h2>
+<p>
+Happy Birthday my love ❤️ <br><br>
+
+Nee en life la vandhadhu romba special… you make my world brighter every single day 😊  
+Un smile dhaan enakku romba pudikkum… adhu eppovum ippadiye irukkanum 💖 <br><br>
+
+I’m really lucky to have you in my life da… nee illa na en life incomplete ah irukkum.  
+Un dreams ellam nijamaaganum, and I’ll always be there for you no matter what 🤗 <br><br>
+
+Love you so much ❤️✨
+</p>
+</div>
+
 <p style="margin-top:40px;">
-From ➝ Friends ➝ Enemies ➝ Love ➝ Breakups ➝ Again Love ➝ i love u more ➝ u more than me but sometimes 
+From ➝ Friends ➝ Enemies ➝ Love ➝ Breakups ➝ Again Love ➝ i love u more ➝ u more than me  
 Now you are my Soulmate 💖<br>
 Every moment with you is magic ✨
 </p>
 
-<!-- GIFT BOXES -->
 <div class="gifts">
   <div class="gift" onclick="openMemories()"></div>
   <div class="gift" onclick="openQuote()"></div>
 </div>
 
-<!-- MEMORIES -->
 <div id="memories" class="box hidden">
 <h2>Our Memories 📸</h2>
 <div class="slide"><img src="photo1.jpeg"></div>
 <div class="slide"><img src="photo2.jpeg"></div>
 <div class="slide"><img src="photo3.jpeg"></div>
-<div class="slide"><img src="photo4.jpeg"></div>
-<div class="slide"><img src="photo5.jpeg"></div>
-<div class="slide"><img src="photo6.jpeg"></div>
-<div class="slide"><img src="photo7.jpeg"></div>
 </div>
 
-<!-- QUOTE -->
 <div id="quote" class="box hidden">
 <h2>From My Heart 💌</h2>
-<p>
-You are my today, my tomorrow, my always 💕<br>
-I love you more every day ❤️
-</p>
+<p>You are my today, my tomorrow, my always 💕<br>I love you more every day ❤️</p>
 </div>
 </section>
 
-<!-- PROPOSAL -->
 <section id="proposal" class="hidden">
 <h1 class="proposal">Keerthi 💍</h1>
 <p>Will you stay with me forever? ❤️</p>
@@ -186,12 +176,10 @@ I love you more every day ❤️
 let slideIndex=0;
 let slideRunning=false;
 
-/* unlock */
 function unlock(){
 if(pass.value==="arunkeerthi"){
 login.classList.add("hidden");
 main.classList.remove("hidden");
-song.volume=0.5;
 song.play();
 hearts();
 typeWriter();
@@ -201,8 +189,7 @@ alert("Wrong Password 😢");
 }
 }
 
-/* typing */
-let text="Happy velentine's day  💕";
+let text="Happy Birthday My Love 💕";
 let i=0;
 function typeWriter(){
 if(i<text.length){
@@ -212,51 +199,44 @@ setTimeout(typeWriter,80);
 }
 }
 
-/* countdown */
+/* UPDATED COUNTDOWN */
 function startCountdown(){
 let target=new Date("July 3, 2026 00:00:00").getTime();
-setInterval(()=>{
+
+let timer=setInterval(()=>{
 let now=new Date().getTime();
 let diff=target-now;
-let days=Math.max(0,Math.floor(diff/(1000*60*60*24)));
-countdown.innerHTML="Countdown to your birthday 🎂 : "+days+" days";
+
+if(diff<=0){
+clearInterval(timer);
+document.getElementById("countdown").innerHTML="🎉 It's your Birthday 🎂❤️";
+document.getElementById("bdayBtn").classList.remove("hidden");
+}else{
+let days=Math.floor(diff/(1000*60*60*24));
+document.getElementById("countdown").innerHTML="Countdown to your birthday 🎂 : "+days+" days";
+}
+
 },1000);
 }
 
-/* memories slideshow */
+/* OPEN WISH */
+function openWish(){
+document.getElementById("bdayWish").classList.remove("hidden");
+document.getElementById("bdayBtn").style.display="none";
+}
+
 function openMemories(){
 memories.classList.toggle("hidden");
-if(!slideRunning){
-slideRunning=true;
-startSlide();
-}
 }
 
-function startSlide(){
-let slides=document.querySelectorAll(".slide");
-slides.forEach(s=>s.style.display="none");
-slideIndex++;
-if(slideIndex>slides.length) slideIndex=1;
-slides[slideIndex-1].style.display="block";
-setTimeout(startSlide,2000);
-}
-
-/* quote + proposal */
 function openQuote(){
 quote.classList.toggle("hidden");
-setTimeout(()=>{
-main.classList.add("hidden");
-proposal.classList.remove("hidden");
-},5000);
 }
 
-/* yes */
 function sayYes(){
 yesMsg.classList.remove("hidden");
-document.querySelector("#proposal button").style.display="none";
 }
 
-/* hearts */
 function hearts(){
 setInterval(()=>{
 let h=document.createElement("div");
